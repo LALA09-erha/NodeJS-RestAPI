@@ -19,3 +19,17 @@ exports.showalldata = function(req,res){
         };
     });
 };
+
+// untuk menampilkan data berdasarkan id
+
+exports.showbyid = function(req,res){
+    var id = req.params.id;
+    connect.query("SELECT * from post where IDPOST=?",[id],function(error,row,fields){
+        if(error){
+            connect.log(error);
+        }
+        else{
+            response.ok(row,res);
+        };
+    });
+};
