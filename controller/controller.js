@@ -33,3 +33,16 @@ exports.showbyid = function(req,res){
         };
     });
 };
+
+// untuk menampilkan data berdasarkan judul
+
+exports.showbyjudul = function(req,res){
+    var judul = req.params.judul;
+    connect.query("SELECT * FROM post WHERE judul LIKE ?",['%'+judul+'%'],function(error,row,fields){
+        if(error){
+            connect.log(error);
+        }else{
+            response.ok(row,res);
+        }
+    });
+};
