@@ -101,9 +101,8 @@ exports.showbyjudul = function(req,res){
 
 //menangani halaman not faund
 exports.notfound = function(req,res){
-    response.error("Halaman tidak ditemukan",res);
+    response.notfound("Halaman tidak ditemukan",res);
 }
-
 
 // menambahkan excel to database
 exports.exportexcel = function(req,res){
@@ -113,11 +112,10 @@ exports.exportexcel = function(req,res){
         var file = req.files.files;
         var filename = req.files.files.name;
         var iduser = req.body.iduser;
-        var path = './../public/files/'+filename;
+        var path = 'public/files/'+filename;
         // get extension file
         var ext = filename.split('.').pop();
         if(ext == "xlsx" || ext == "xls" || ext == "csv" || ext == "xlsm" || ext == "xltx" || ext == "xltm" || ext == "xlsb" || ext == "xlam" || ext == "xla" || ext == "xlw" || ext == "xlr"){
-        
             file.mv(path,function(error){
                 if(error){
                     response.error(error,res);
@@ -135,7 +133,6 @@ exports.exportexcel = function(req,res){
                         items.push(xlData[i].namaitem);
                     }
                 }
-                // console.log(err)
                 // check err undifined
                 if(err == "Format excel salah"){
                     response.error("Format excel salah",res);

@@ -7,9 +7,5 @@ const connection =  mysql.createConnection({
     database:"products"
 });
 
-// connection.connect((error) =>{
-//     if(error) throw error;
-//     console.log("SQL berhasil terkoneksi!") ;
-// });
 
 module.exports={connection};
