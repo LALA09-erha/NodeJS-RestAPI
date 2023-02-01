@@ -162,47 +162,50 @@ exports.exportexcel = function(req,res){
                             //// save to db 
                             // mengambil data sheet pertama
                             var xlData = server.xlsx.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
+                            response.ok(xlData,res);
                             // parsing data
-                            for (const key in xlData) {
-                                if (xlData.hasOwnProperty(key)) {
-                                    const element = xlData[key];
-                                    var deff = items.filter(x => !itemss.includes(x));
-                                    if(deff.includes(element.namaitem) == true){
-                                        if(temp.includes(element.namaitem) == false){
-                                            temp.push(element.namaitem);
-                                            //insert data to db
-                                            element.iduser = iduser;
-                                            element.idsession = session_id;
-                                            var item = Items.insert(element);
-                                            item.then(function (result) {
-                                                //berhasil update
-                                            }).catch(function (err) {
-                                                response.error(err,res);
-                                            });
-                                        }
-                                    }
-                                }  
-                            }
+                            // for (const key in xlData) {
+                            //     if (xlData.hasOwnProperty(key)) {
+                            //         const element = xlData[key];
+                            //         var deff = items.filter(x => !itemss.includes(x));
+                            //         if(deff.includes(element.namaitem) == true){
+                            //             if(temp.includes(element.namaitem) == false){
+                            //                 temp.push(element.namaitem);
+                            //                 //insert data to db
+                            //                 element.iduser = iduser;
+                            //                 element.idsession = session_id;
+                            //                 var item = Items.insert(element);
+                            //                 item.then(function (result) {
+                            //                     //berhasil update
+                            //                 }).catch(function (err) {
+                            //                     response.error(err,res);
+                            //                 });
+                            //             }
+                            //         }
+                            //     }  
+                            // }
                         }else{
                             //mengambil jumlahitem dari result 
                             var jumlahitem = result[0].jumlahitem;
                             //mengambil data sheet pertama
                             var xlData = server.xlsx.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
-                            for (const key in xlData) {
-                                if (xlData.hasOwnProperty(key)) {
-                                    const element = xlData[key];
-                                    if(element.namaitem == result[0].namaitem){
-                                    jumlahitem = Number(jumlahitem) + Number(element.jumlahitem);
-                                    //update jumlah item
-                                    var updatejumlah = Items.updatejumlahitemfix(jumlahitem,element.namaitem,iduser,session_id);
-                                    updatejumlah.then(function (result) {
-                                    }
-                                      //berhasil update   
-                                    ).catch(function (err) {
-                                        response.error(err,res);
-                                    });
-                                    }}
-                            }
+                            console.log(xlData);
+                            response.ok(xlData,res);
+                            // for (const key in xlData) {
+                            //     if (xlData.hasOwnProperty(key)) {
+                            //         const element = xlData[key];
+                            //         if(element.namaitem == result[0].namaitem){
+                            //         jumlahitem = Number(jumlahitem) + Number(element.jumlahitem);
+                            //         //update jumlah item
+                            //         var updatejumlah = Items.updatejumlahitemfix(jumlahitem,element.namaitem,iduser,session_id);
+                            //         updatejumlah.then(function (result) {
+                            //         }
+                            //           //berhasil update   
+                            //         ).catch(function (err) {
+                            //             response.error(err,res);
+                            //         });
+                            //         }}
+                            // }
                         }
     
                     }).catch(function (err) {
