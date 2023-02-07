@@ -226,3 +226,17 @@ exports.exportexcel = function(req,res){
     }
 
 }
+
+exports.create = function(req,res){
+    var data = req.body.data
+    var new_data = req.body.new_data
+
+    // console.log(data);
+    // console.log(new_data);  
+    var createItem = Items.createItem(data,new_data);
+    createItem.then(function(result){
+        response.ok(result,res);
+    }).catch(function(err){
+        response.ok(err,res);
+    })
+}

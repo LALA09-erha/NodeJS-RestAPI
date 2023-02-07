@@ -1,3 +1,4 @@
+const { resolve } = require('url');
 const conn = require('../database/connect');
 
 
@@ -54,4 +55,37 @@ const updatejumlahitemfix = (data,data_2,data_3,data_4) => {
         });
     });
 }
-module.exports = { getnamaitem, updatejumlahitem,updatejumlahitemfix,insert };
+
+
+const createItem = (data,data_2)=>{
+    return new Promise((resolve,reject)=>{
+        var item = data;
+        var lengthItem = item.length;
+        
+        // check data already exist
+        var check = 0;
+        var jumlah = 0;
+        for(var i= 0 ; i <lengthItem;i++){
+            if((item[i].namaitem == data_2.namaitem && item[i].jumlahitem == data_2.jumlahitem) ||item[i].namaitem == data_2.namaitem && item[i].jumlahitem != data_2.jumlahitem){
+                var jumlah = parseInt(item[i].jumlahitem) + parseInt(data_2.jumlahitem);
+                item[i].jumlahitem = jumlah.toString();
+            }else if(item[i].namaitem != data_2.namaitem){
+                check ++;
+            }
+        }
+        
+        // if not exist then push data
+        if(check == lengthItem){
+            if(jumlah ==0){
+                item.push(data_2);
+                resolve(item)
+            }else{
+                resolve(item)
+            }
+        }else{
+            reject(item);
+        }
+
+    })
+}
+module.exports = { getnamaitem, updatejumlahitem,updatejumlahitemfix,insert ,createItem};
