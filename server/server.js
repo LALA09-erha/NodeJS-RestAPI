@@ -1,5 +1,5 @@
 'use strict';
-
+//import all packeges
 const bodyParser = require('body-parser');
 const express = require('express'); 
 const fileUpload = require('express-fileupload');
@@ -8,22 +8,21 @@ exports.validate = require('email-validator');
 const app = express();
 exports.xlsx = require('xlsx');
 
-// membuat server
+// configuration for app 
 app.use(cors({
     origin: '*'
 }));
-
-// app.use(express.static('public'))
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(fileUpload());
 
-//panggil routes
+//call function routes
 
 const routes = require('../routes/routes');
 routes(app);    
 
-const port = process.env.PORT || 3001;  
+// make server port with port
+const port = process.env.PORT || 3000;  
 app.listen(port, () => {
     console.log('Server berjalan di port '+port);
 });

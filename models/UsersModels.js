@@ -1,3 +1,4 @@
+// import database connection
 const conn = require('../database/connect');
 
 

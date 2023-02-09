@@ -30,17 +30,29 @@ module.exports = function(app){
     
     // untuk menambahkan excel to database
     app.route('/export-excel').post(Items.exportexcel);
-    //route for create Items
-    app.route('/create').post(Items.create)
     
     //route for login
     app.route('/login').post(User.login)
     
     //route for register
     app.route('/register').post(User.register)
-
     
+    
+    //untuk menghapus data berdasarkan id
+    app.route('/delete/:id').delete(Items.delete);
+    
+    //untuk mengedit data berdasarkan id
+    app.route('/edit/:id').put(Items.edit);
+    
+    // untuk menambahkan data
+    app.route('/create').post(Items.create)
+
+    //check header csv 
+    app.route('/checkheadercsv').post(Items.checkheadercsv)
+
+    //GET DATA DATE
+    app.route('/formatmoment').post(Items.formatmoment);
+
     // untuk mengembalikan jika tidak ada route yang menagani 
     app.route('/:route/(*)').get(Items.notfound);
-
 }
